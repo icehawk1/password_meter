@@ -10,6 +10,7 @@
 </script>
 
 <link type="text/css" href="css/style.css" rel="stylesheet" />
+<link type="text/css" href="css/speechbubble.css" rel="stylesheet" />
 <style>
 	#progress {
 	 width: 500px;   
@@ -26,10 +27,9 @@
 <script language="JavaScript" type="text/javascript">
 require(["dojo/dom", "dojo/on", "dojo/request", "dojo/dom-attr", "dojo/domReady!"],
 	    function(dom, on, request, domAttr){
-	        // Results will be displayed in resultDiv
-	        var resultDiv = dom.byId("results");
-	        var strengthDiv = dom.byId("passwordStrength");
-	        
+			//Results will be displayed in these dom elements
+			var strengthDiv = dom.byId("passwordStrength");
+	        var messageP = dom.byId("messages");
 	        
 	        function updateStrengthBar(strength){
                 switch(strength){
@@ -46,7 +46,6 @@ require(["dojo/dom", "dojo/on", "dojo/request", "dojo/dom-attr", "dojo/domReady!
                    		strengthDiv.innerHTML = "<div id=\"bar\" style=\"background-color: gray; width: 0%;\">";
                    		break;
                 } 
-                resultDiv.innerHTML = strength;
 	        }
  
 	        function updateOkButton(strength) {
@@ -60,6 +59,10 @@ require(["dojo/dom", "dojo/on", "dojo/request", "dojo/dom-attr", "dojo/domReady!
 				    }
 				});
 	        }
+	        
+	        function addMessage(message) {
+	        	messageP.innerHTML = message.trim();
+	        }
 
 	        on(dom.byId("password"), "keyup", function(evt){
 	            // Request the text file
@@ -70,10 +73,14 @@ require(["dojo/dom", "dojo/on", "dojo/request", "dojo/dom-attr", "dojo/domReady!
 	            				pass: document.getElementById("password").value
 	            			}
 	            		}).then(
-	                function(response){
-	                	response = response.trim().toUpperCase();
-						updateStrengthBar(response);
-						updateOkButton(response);
+	            	function(rawResponse){
+	            		require(['dojo/_base/json'],function(dojo) {	            			
+		                	var response = dojo.fromJson(rawResponse);
+		                	strength = response.strength.trim().toUpperCase();
+							updateStrengthBar(strength);
+							updateOkButton(strength);
+							addMessage(response.message);
+	            		});
 	                },
 	                function(error){
 	                    // Display the error returned
@@ -95,6 +102,7 @@ require(["dojo/dom", "dojo/on", "dojo/request", "dojo/dom-attr", "dojo/domReady!
   						
   						updateStrengthBar("STRONG");
 						updateOkButton("STRONG");
+						addMessage("Your password is fine now, you can click OK");
 	                },
 	                function(error){
 	                    // Display the error returned
@@ -136,9 +144,10 @@ require(["dojo/dom", "dojo/on", "dojo/request", "dojo/dom-attr", "dojo/domReady!
 	
 	<div class="block">
 		<!-- <div id="resultDescr" class="default">Breakdown of points</div> -->
-		<div id="results"></div>
+		<p class="speech" id="messages"></p>
+		<img alt="Cat" src="images/cat.png" height="200mm" />
 	</div>
-	
+
 	<div class="block">
 		<button id="improve"  type="button" >Improve your Password</button>
 		<button id="ok" dojoType="dijit.form.Button" type="submit" disabled="disabled">OK</button>

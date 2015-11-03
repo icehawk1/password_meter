@@ -20,7 +20,7 @@ public class CreateAccount implements Nanolet {
 	public Response serve(IHTTPSession session) {
 		try {
 			StringWriter out = new StringWriter();
-			Template template = PasswordMeter.FREEMARKER_CONFIG.getTemplate("CreateAccount.ftl");
+			Template template = PasswordMeter.FREEMARKER_CONFIG.getTemplate("CreateAccount.html");
 			template.process(environment, out);
 			out.close();
 			return new Response(out.toString());

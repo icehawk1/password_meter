@@ -28,5 +28,4 @@ public class PasswordMeter {
 			ex.printStackTrace();
 		}
 	}
-
 }
