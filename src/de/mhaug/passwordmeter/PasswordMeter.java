@@ -20,7 +20,7 @@ public class PasswordMeter {
 		HttpServer server = new HttpServer();
 		try {
 			server.start();
-			System.out.println("\nRunning! Point your browser to http://localhost:8080/CreateAccount \n");
+			System.out.println("\nRunning! Point your browser to http://localhost:8080/SelectUsername \n");
 			while (true)
 				Thread.sleep(100);
 		} catch (IOException | InterruptedException ex) {

@@ -91,14 +91,12 @@ public class PasswordChecker implements Nanolet {
 			result.strength = PasswordStrength.WEAK;
 
 		List<String> messages = strongValidator.getMessages(strongResult);
-		System.out.println("Messages: " + messages);
 		if (!messages.isEmpty()) {
 			// Ignore empty messages, because that are the annoying ones
 			for (String msg : messages)
 				if (!msg.isEmpty())
 					result.message = "<br>" + msg;
 		}
-		System.out.println("Message: " + result.message);
 
 		return result;
 	}

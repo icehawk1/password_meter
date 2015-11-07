@@ -24,7 +24,10 @@ public class HttpServer extends NanoHTTPD {
 	public HttpServer(String hostname, int port) {
 		super(hostname, port);
 
+		mappings.put("SelectUsername", new SelectUsername());
 		mappings.put("PasswordChecker", new PasswordChecker());
+		mappings.put("Confirmation", new Confirmation());
+
 		mappings.put("CreateAccount", new CreateAccount());
 		mappings.put("ImprovePassword", new ImprovePassword());
 	}
@@ -32,7 +35,6 @@ public class HttpServer extends NanoHTTPD {
 	@Override
 	public Response serve(IHTTPSession session) {
 		Response result = new Response("Some error occured");
-		System.out.println("Uri: " + session.getUri());
 
 		try {
 			URI uri = new URI(session.getUri());

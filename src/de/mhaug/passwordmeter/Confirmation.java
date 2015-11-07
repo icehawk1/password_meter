@@ -10,7 +10,7 @@ import fi.iki.elonen.NanoHTTPD.Response;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
-public class CreateAccount implements Nanolet {
+public class Confirmation implements Nanolet {
 	private Map<String, Object> environment = new HashMap<>();
 
 	@Override
@@ -18,9 +18,11 @@ public class CreateAccount implements Nanolet {
 		try {
 			assert session.getParms().containsKey("username");
 			environment.put("username", session.getParms().get("username"));
+			assert session.getParms().containsKey("password");
+			environment.put("password", session.getParms().get("password"));
 
 			StringWriter out = new StringWriter();
-			Template template = PasswordMeter.FREEMARKER_CONFIG.getTemplate("CreateAccount.html");
+			Template template = PasswordMeter.FREEMARKER_CONFIG.getTemplate("Confirmation.html");
 			template.process(environment, out);
 			out.close();
 			return new Response(out.toString());

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="dojoroot/dojo/dojo.js" djConfig="parseOnLoad: true, isDebug: false"></script>
+<script language="JavaScript" type="text/javascript">
+	dojo.require("dijit.TitlePane");
+	dojo.require("dojo.parser");
+	dojo.require("dojo.request");
+	dojo.require("dijit.Tooltip");
+</script>
+
+<link type="text/css" href="css/style.css" rel="stylesheet" />
+<link type="text/css" href="css/speechbubble.css" rel="stylesheet" />
+<style>
+#progress {
+	width: 500px;
+	border: 3px solid black;
+	position: relative;
+	padding: 3px;
+}
+
+#bar {
+	height: 20px;
+}
+</style>
+
+
+<title>Confirmation</title>
+</head>
+
+<body>
+	<div id="container">
+		<div class="block">
+			<div id="stmt" class="default">Your account was succesfully created.</div>
+
+			<div class="block">
+				<p class="speech" id="messages">
+					<br>
+					<b>Username:</b> ${username}<br>
+					<b>Password:</b> ${password}
+				</p>
+				
+				<img alt="Cat" src="images/cat.png" height="200mm" />
+			</div>
+
+		</div>
+	</div>
+</body>
+
+</html>

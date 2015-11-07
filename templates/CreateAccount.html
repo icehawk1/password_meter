@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 <script type="text/javascript" src="dojoroot/dojo/dojo.js" djConfig="parseOnLoad: true, isDebug: false"></script>
@@ -79,7 +79,10 @@ require(["dojo/dom", "dojo/on", "dojo/request", "dojo/dom-attr", "dojo/domReady!
 		                	strength = response.strength.trim().toUpperCase();
 							updateStrengthBar(strength);
 							updateOkButton(strength);
-							addMessage(response.message);
+							if(strength == "STRONG") 
+								addMessage("Your password is fine now, you can click OK");
+							else 
+								addMessage(response.message + "<br> You can also click on improve.");
 	            		});
 	                },
 	                function(error){
@@ -120,14 +123,18 @@ require(["dojo/dom", "dojo/on", "dojo/request", "dojo/dom-attr", "dojo/domReady!
 <body>
 
 <div id="container">
+	<form action="Confirmation" method="get">
 	<h1>Create Account</h1>
+	
+	<p>
 	<div class="block">
-		<input id="username" type="text"/>
-		<div id="userDescr" class="default">Enter your username</div>
+		<input id="username" name="username" type="text" disabled="disabled" value="${username}"/>
+		<input id="username" name="username" type="hidden" value="${username}"/>
+		<div id="userDescr" class="default">The username you picked</div>
 	</div>
 	
 	<div class="block">
-		<input id="password" type="text"/>
+		<input id="password" name="password" type="text" />
 		<div id="passDescr" class="default" >Enter your password</div>
 	</div>
 	
@@ -143,8 +150,7 @@ require(["dojo/dom", "dojo/on", "dojo/request", "dojo/dom-attr", "dojo/domReady!
 	</div>
 	
 	<div class="block">
-		<!-- <div id="resultDescr" class="default">Breakdown of points</div> -->
-		<p class="speech" id="messages"></p>
+		<p class="speech" id="messages">Please enter a password</p>
 		<img alt="Cat" src="images/cat.png" height="200mm" />
 	</div>
 
@@ -152,6 +158,7 @@ require(["dojo/dom", "dojo/on", "dojo/request", "dojo/dom-attr", "dojo/domReady!
 		<button id="improve"  type="button" >Improve your Password</button>
 		<button id="ok" dojoType="dijit.form.Button" type="submit" disabled="disabled">OK</button>
 	</div>
+	</form>
 </div>
 
 </body>

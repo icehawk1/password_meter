@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="dojoroot/dojo/dojo.js" djConfig="parseOnLoad: true, isDebug: false"></script>
+<script language="JavaScript" type="text/javascript">
+	dojo.require("dijit.TitlePane");
+	dojo.require("dojo.parser");
+	dojo.require("dojo.request");
+	dojo.require("dijit.Tooltip");
+</script>
+
+<link type="text/css" href="css/style.css" rel="stylesheet" />
+<link type="text/css" href="css/speechbubble.css" rel="stylesheet" />
+<style>
+#progress {
+	width: 500px;
+	border: 3px solid black;
+	position: relative;
+	padding: 3px;
+}
+
+#bar {
+	height: 20px;
+}
+</style>
+
+
+<title>Select Username</title>
+</head>
+
+<body>
+	<div id="container">
+		<form action="CreateAccount" id="formular" method="get" >
+			<h1>Username</h1>
+			<div class="block">
+				<input id="username" pattern=".{2,256}" required title="Username needs be at least 2 characters" name="username" type="text" />
+			</div>
+
+			<div class="block">
+				<p class="speech" id="messages"><br><br>Enter your username</p>
+				<img alt="Cat" src="images/cat.png" height="200mm" />
+			</div>
+
+
+			<div class="block">
+				<button id="ok" dojoType="dijit.form.Button" type="submit">OK</button>
+			</div>
+		</form>
+	</div>
+
+</body>
+
+</html>
