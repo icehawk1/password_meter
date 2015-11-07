@@ -30,6 +30,7 @@ require(["dojo/dom", "dojo/on", "dojo/request", "dojo/dom-attr", "dojo/domReady!
 			//Results will be displayed in these dom elements
 			var strengthDiv = dom.byId("passwordStrength");
 	        var messageP = dom.byId("messages");
+	        var lastPW = "";
 	        
 	        function updateStrengthBar(strength){
                 switch(strength){
@@ -126,7 +127,6 @@ require(["dojo/dom", "dojo/on", "dojo/request", "dojo/dom-attr", "dojo/domReady!
 	<form action="Confirmation" method="get">
 	<h1>Create Account</h1>
 	
-	<p>
 	<div class="block">
 		<input id="username" name="username" type="text" disabled="disabled" value="${username}"/>
 		<input id="username" name="username" type="hidden" value="${username}"/>

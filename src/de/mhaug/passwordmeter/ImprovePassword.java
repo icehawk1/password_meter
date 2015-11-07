@@ -8,6 +8,12 @@ import org.apache.commons.lang3.RandomStringUtils;
 import fi.iki.elonen.NanoHTTPD.IHTTPSession;
 import fi.iki.elonen.NanoHTTPD.Response;
 
+/**
+ * A Web-API that takes a password as a parameter and inserts random characters
+ * until the password is strong enough and then returns the result.
+ * 
+ * @author Martin Haug
+ */
 public class ImprovePassword implements Nanolet {
 	private Random rand = new SecureRandom();
 
@@ -16,16 +22,15 @@ public class ImprovePassword implements Nanolet {
 		if (!session.getParms().containsKey("pass"))
 			return new Response("Error in improving password");
 
-		// List<PasswordComponent> components =
-		// dissectPassword(session.getParms().get("pass"));
-		// List<PasswordComponent> newPassword =
-		// createAcceptablePassword(components);
-		// return new Response(reassemble(newPassword));
-		String result = temporarlyImprovePassword(session.getParms().get("pass"));
+		String result = improvePassword(session.getParms().get("pass"));
 		return new Response(result);
 	}
 
-	String temporarlyImprovePassword(String pw) {
+	/**
+	 * Creates a sufficiently strong password from a weak one. Inputs which are
+	 * already strong are not changed.
+	 */
+	String improvePassword(String pw) {
 		if (pw.isEmpty()) {
 			pw = RandomStringUtils.randomAscii(7);
 		}

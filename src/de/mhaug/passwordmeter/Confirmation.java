@@ -10,6 +10,12 @@ import fi.iki.elonen.NanoHTTPD.Response;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
+/**
+ * Shows a confirmation dialog that details the choosen username and password.
+ * The accompanying template is templates/Confirmation.html.
+ * 
+ * @author Martin Haug
+ */
 public class Confirmation implements Nanolet {
 	private Map<String, Object> environment = new HashMap<>();
 

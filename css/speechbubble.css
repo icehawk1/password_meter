@@ -3,7 +3,7 @@ p.speech
 {
 	position: relative;
 	width: 300px;
-	height: 100px;
+	height: 70px;
 	text-align: center;
 	/*line-height: 100px;*/
 	background-color: #fff;
@@ -24,7 +24,7 @@ p.speech:before
 	width: 0;
 	height: 0;
 	left: 60px;
-	top: 100px;
+	top: 70px;
 	border: 25px solid;
 	border-color: #666 transparent transparent #666;
 }
@@ -37,7 +37,7 @@ p.speech:after
 	width: 0;
 	height: 0;
 	left: 76px;
-	top: 100px;
+	top: 70px;
 	border: 15px solid;
 	border-color: #fff transparent transparent #fff;
 }

@@ -10,6 +10,12 @@ import fi.iki.elonen.NanoHTTPD.Response;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
+/**
+ * Shows a window where users can select their passwords and can verify that it
+ * is strong enough. The accompanying template is templates/CreateAccount.html.
+ * 
+ * @author Martin Haug
+ */
 public class CreateAccount implements Nanolet {
 	private Map<String, Object> environment = new HashMap<>();
 

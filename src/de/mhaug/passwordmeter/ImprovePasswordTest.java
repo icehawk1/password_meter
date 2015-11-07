@@ -7,6 +7,11 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * A testcase for ImprovePassword
+ * 
+ * @author Martin Haug
+ */
 public class ImprovePasswordTest {
 	private ImprovePassword instance;
 	private Random rand;
@@ -26,7 +31,7 @@ public class ImprovePasswordTest {
 			} else {
 				oldPw = RandomStringUtils.randomAscii(rand.nextInt(12));
 			}
-			String newPw = instance.temporarlyImprovePassword(oldPw);
+			String newPw = instance.improvePassword(oldPw);
 			Assert.assertEquals("Failed for: " + oldPw + " after " + i + " trials", PasswordStrength.STRONG,
 					PasswordChecker.checkPassword(newPw).strength);
 		}

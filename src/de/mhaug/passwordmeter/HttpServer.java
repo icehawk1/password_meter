@@ -14,7 +14,17 @@ import java.util.Map;
 import fi.iki.elonen.NanoHTTPD;
 import fi.iki.elonen.NanoHTTPD.Response.Status;
 
+/**
+ * The HTTP-Server used to serve the web pages.
+ * 
+ * @author Martin Haug
+ */
 public class HttpServer extends NanoHTTPD {
+	/**
+	 * Maps URLs to Classes which serve these URLs. In other words: A mapping
+	 * from /Foo to the class Bar means that Bar is responsible for answering
+	 * the request.
+	 */
 	private Map<String, Nanolet> mappings = new HashMap<>();
 
 	public HttpServer() {
@@ -59,6 +69,12 @@ public class HttpServer extends NanoHTTPD {
 		return result;
 	}
 
+	/**
+	 * A file for which there is no mapping.
+	 * 
+	 * @param uri
+	 * @return
+	 */
 	private Response serveFile(URI uri) {
 		try {
 			File requestedFile = new File(new File("."), uri.getPath());
@@ -80,6 +96,12 @@ public class HttpServer extends NanoHTTPD {
 		}
 	}
 
+	/**
+	 * Serves a directory if there is no mapping for it.
+	 * 
+	 * @param path
+	 * @return
+	 */
 	private String guessMimetype(String path) {
 		try {
 			return Files.probeContentType(Paths.get(path));
