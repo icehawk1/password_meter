@@ -24,6 +24,8 @@ public class HttpServer extends NanoHTTPD {
 	public HttpServer(String hostname, int port) {
 		super(hostname, port);
 
+		mappings.put("/", new SelectUsername());
+		mappings.put("index.html", new SelectUsername());
 		mappings.put("SelectUsername", new SelectUsername());
 		mappings.put("PasswordChecker", new PasswordChecker());
 		mappings.put("Confirmation", new Confirmation());
