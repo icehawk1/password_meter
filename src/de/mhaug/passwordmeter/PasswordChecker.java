@@ -21,6 +21,7 @@ import org.passay.MessageResolver;
 import org.passay.PasswordData;
 import org.passay.PasswordValidator;
 import org.passay.PropertiesMessageResolver;
+import org.passay.RepeatCharacterRegexRule;
 import org.passay.RuleResult;
 import org.passay.UsernameRule;
 import org.passay.dictionary.ArrayWordList;
@@ -97,15 +98,8 @@ public class PasswordChecker implements Nanolet {
 		String[] passwords = readPasswords();
 		DictionarySubstringRule dictrule = new DictionarySubstringRule(new WordListDictionary(new ArrayWordList(
 				passwords, false)));
-		// try {
-		// dictrule = new DictionarySubstringRule(new WordListDictionary(new
-		// FileWordList(new RandomAccessFile(
-		// new File("./templates/10k_most_common.txt"), "r"))));
-		// } catch (IOException e) {
-		// e.printStackTrace();
-		// }
 		return new PasswordValidator(resolver, Arrays.asList(new LengthRule(6, Integer.MAX_VALUE), new UsernameRule(
-				true, true), requiredAlphabets, dictrule));
+				true, true), requiredAlphabets, dictrule, new RepeatCharacterRegexRule(3)));
 	}
 
 	private static String[] readPasswords() {
