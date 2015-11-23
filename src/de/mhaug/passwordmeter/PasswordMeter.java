@@ -8,6 +8,14 @@ import freemarker.template.Configuration;
 import freemarker.template.TemplateExceptionHandler;
 
 public class PasswordMeter {
+	/**
+	 * TODO:
+	 * 
+	 * - Password should need to be confirmed
+	 * 
+	 * - Generated passwords should be shorter
+	 */
+
 	public static final Logger LOG = Logger.getLogger(PasswordMeter.class.getName());
 	public static final Configuration FREEMARKER_CONFIG = new Configuration(Configuration.VERSION_2_3_23);
 	public static final PasswordStrength desiredStrength = PasswordStrength.STRONG;

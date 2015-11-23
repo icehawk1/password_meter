@@ -1,15 +1,20 @@
 package de.mhaug.passwordmeter;
 
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 import java.util.Random;
+import java.util.Scanner;
 
 import org.passay.CharacterCharacteristicsRule;
 import org.passay.CharacterRule;
+import org.passay.DictionarySubstringRule;
 import org.passay.EnglishCharacterData;
 import org.passay.LengthRule;
 import org.passay.MessageResolver;
@@ -18,6 +23,8 @@ import org.passay.PasswordValidator;
 import org.passay.PropertiesMessageResolver;
 import org.passay.RuleResult;
 import org.passay.UsernameRule;
+import org.passay.dictionary.ArrayWordList;
+import org.passay.dictionary.WordListDictionary;
 
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
@@ -66,7 +73,8 @@ public class PasswordChecker implements Nanolet {
 		requiredAlphabets.getRules().add(new CharacterRule(EnglishCharacterData.UpperCase, 1));
 		requiredAlphabets.getRules().add(new CharacterRule(EnglishCharacterData.LowerCase, 1));
 		requiredAlphabets.getRules().add(new CharacterRule(EnglishCharacterData.Digit, 1));
-		requiredAlphabets.getRules().add(new CharacterRule(EnglishCharacterData.Special, 1));
+		// requiredAlphabets.getRules().add(new
+		// CharacterRule(EnglishCharacterData.Special, 1));
 
 		return new PasswordValidator(Arrays.asList(new LengthRule(4, Integer.MAX_VALUE), new UsernameRule(true, true),
 				requiredAlphabets));
@@ -79,14 +87,41 @@ public class PasswordChecker implements Nanolet {
 		MessageResolver resolver = createMessageResolver();
 
 		CharacterCharacteristicsRule requiredAlphabets = new CharacterCharacteristicsRule();
-		requiredAlphabets.setNumberOfCharacteristics(4);
+		requiredAlphabets.setNumberOfCharacteristics(3);
 		requiredAlphabets.getRules().add(new CharacterRule(EnglishCharacterData.UpperCase, 1));
 		requiredAlphabets.getRules().add(new CharacterRule(EnglishCharacterData.LowerCase, 1));
 		requiredAlphabets.getRules().add(new CharacterRule(EnglishCharacterData.Digit, 1));
-		requiredAlphabets.getRules().add(new CharacterRule(EnglishCharacterData.Special, 1));
+		// requiredAlphabets.getRules().add(new
+		// CharacterRule(EnglishCharacterData.Special, 1));
 
+		String[] passwords = readPasswords();
+		DictionarySubstringRule dictrule = new DictionarySubstringRule(new WordListDictionary(new ArrayWordList(
+				passwords, false)));
+		// try {
+		// dictrule = new DictionarySubstringRule(new WordListDictionary(new
+		// FileWordList(new RandomAccessFile(
+		// new File("./templates/10k_most_common.txt"), "r"))));
+		// } catch (IOException e) {
+		// e.printStackTrace();
+		// }
 		return new PasswordValidator(resolver, Arrays.asList(new LengthRule(6, Integer.MAX_VALUE), new UsernameRule(
-				true, true), requiredAlphabets));
+				true, true), requiredAlphabets, dictrule));
+	}
+
+	private static String[] readPasswords() {
+		try {
+			Scanner filein = new Scanner(new File("./templates/10k_most_common.txt"));
+			ArrayList<String> result = new ArrayList<>();
+			while (filein.hasNextLine()) {
+				String line = filein.nextLine().trim();
+				result.add(line);
+			}
+			Collections.sort(result);
+			return result.toArray(new String[] {});
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return new String[] {};
+		}
 	}
 
 	/**

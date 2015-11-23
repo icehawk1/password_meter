@@ -37,13 +37,11 @@ public class ImprovePassword implements Nanolet {
 
 		while (!PasswordChecker.checkPassword(pw).strength.equals(PasswordStrength.STRONG)) {
 			int idx = rand.nextInt(pw.length());
-			int choice = rand.nextInt(3);
+			int choice = rand.nextInt(2);
 			if (choice == 0) {
 				pw = pw.substring(0, idx) + RandomStringUtils.randomAlphabetic(1) + pw.substring(idx, pw.length());
 			} else if (choice == 1) {
 				pw = pw.substring(0, idx) + RandomStringUtils.randomNumeric(1) + pw.substring(idx, pw.length());
-			} else if (choice == 2) {
-				pw = pw.substring(0, idx) + RandomStringUtils.randomAscii(1) + pw.substring(idx, pw.length());
 			}
 			pw = pw.trim();
 		}

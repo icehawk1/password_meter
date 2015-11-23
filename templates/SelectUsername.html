@@ -24,6 +24,25 @@
 }
 </style>
 
+<script language="JavaScript" type="text/javascript">
+require(["dojo/dom", "dojo/on", "dojo/dom-attr", "dojo/domReady!"],
+	    function(dom, on, domAttr){
+				usernameField = dom.byId("username");
+				var messageP = dom.byId("messages");
+		        on(usernameField, "keyup", function(evt){
+			    var okButton = dom.byId("ok");
+			    if(usernameField.value.length >= 2) {
+			    	domAttr.set(okButton, 'disabled', false);
+			    	messageP.innerHTML = "<br>You can click OK";
+			    } else {
+			    	domAttr.set(okButton, 'disabled', true);
+			    	messageP.innerHTML = "<br>Your username should have at least two characters";
+	      		}
+	        });
+	    }
+	);
+</script>
+
 
 <title>Select Username</title>
 </head>
@@ -31,7 +50,7 @@
 <body>
 	<div id="container">
 		<form action="CreateAccount" id="formular" method="get" >
-			<h1>Username</h1>
+			<h1>Select Username</h1>
 			<div class="block">
 				<input id="username" pattern=".{2,256}" required title="Username needs at least 2 characters" name="username" type="text" />
 			</div>
@@ -43,7 +62,7 @@
 
 
 			<div class="block">
-				<button id="ok" dojoType="dijit.form.Button" type="submit">OK</button>
+				<button id="ok" dojoType="dijit.form.Button" disabled="disabled" type="submit">OK</button>
 			</div>
 		</form>
 	</div>
