@@ -27,6 +27,7 @@ public class PasswordMeter {
 
 		HttpServer server = new HttpServer();
 		try {
+			System.out.println("\nStarting...");
 			server.start();
 			System.out.println("\nRunning! Point your browser to http://localhost:8080/SelectUsername \n");
 			while (true)
