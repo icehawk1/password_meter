@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="dojoroot/dojo.js" djConfig="parseOnLoad: true, isDebug: false"></script>
+<script language="JavaScript" type="text/javascript">
+	dojo.require("dijit.TitlePane");
+	dojo.require("dojo.parser");
+	dojo.require("dojo.request");
+	dojo.require("dijit.Tooltip");
+</script>
+
+<link type="text/css" href="css/style.css" rel="stylesheet" />
+<link type="text/css" href="css/speechbubble.css" rel="stylesheet" />
+<style>
+#progress {
+	width: 500px;
+	border: 3px solid black;
+	position: relative;
+	padding: 3px;
+}
+
+#bar {
+	height: 20px;
+}
+</style>
+
+<script language="JavaScript" type="text/javascript">
+require(["dojo/dom", "dojo/on", "dojo/request", "dojo/dom-attr", "dojo/domReady!"],
+	    function(dom, on, request, domAttr){
+			//Results will be displayed in these dom elements
+	        var messageP = dom.byId("messages");
+			var pwInput = dom.byId("password");
+	        var lastPW = "${password}";
+	         
+	        function updateOkButton(onOff) {
+        		require(['dojo/on', 'dojo/dom', 'dojo/dom-attr'],
+				  function (on, dom, domAttr) {
+				    var okButton = dom.byId("ok");
+				    if(onOff) {
+				    	domAttr.set(okButton, 'disabled', false);
+				    } else {
+				    	domAttr.set(okButton, 'disabled', true);
+				    }
+				});
+	        }
+	        
+	        function addMessage(message) {
+	        	messageP.innerHTML = message.trim();
+	        }
+
+	        on(dom.byId("password"), "keyup", function(evt){
+				if(pwInput.value === lastPW) {
+					updateOkButton(true);
+					addMessage("You can click OK.");
+				} else {
+					updateOkButton(false);
+					addMessage("You entered something different from what your password is.");
+				}
+	        });
+	    }
+	);
+</script>
+
+
+<title>Retype Password</title>
+</head>
+
+<body>
+	<div id="container">
+		<form action="Confirmation" method="get">
+			<input id="username" name="username" type="hidden" value="${username}"/>
+			
+			<div class="block">
+				<input id="password" name="password" type="text" />
+				<div id="passDescr" class="default" >Enter your password, again</div>
+			</div>
+			
+			<div class="block">
+				<p class="speech" id="messages">Please retype the password you selected before</p>
+				<img alt="Cat" src="images/cat.png" height="200mm" />
+			</div>
+			
+			<div class="block">
+				<button id="ok" dojoType="dijit.form.Button" type="submit" disabled="disabled">OK</button>
+			</div>
+		</form>
+	</div>
+</body>
+
+</html>

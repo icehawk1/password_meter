@@ -37,10 +37,11 @@ public class HttpServer extends NanoHTTPD {
 		mappings.put("/", new SelectUsername());
 		mappings.put("index.html", new SelectUsername());
 		mappings.put("SelectUsername", new SelectUsername());
-		mappings.put("PasswordChecker", new PasswordChecker());
+		mappings.put("CreateAccount", new CreateAccount());
+		mappings.put("RetypePassword", new RetypePw());
 		mappings.put("Confirmation", new Confirmation());
 
-		mappings.put("CreateAccount", new CreateAccount());
+		mappings.put("PasswordChecker", new PasswordChecker());
 		mappings.put("ImprovePassword", new ImprovePassword());
 	}
 
